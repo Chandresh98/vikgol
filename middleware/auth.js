@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 
 let auth = async function(req,res,next){
     try{
-    let token = req.headers["authorization"]
+    let token = req.headers[""]
     if(token){
         let decodedToken = jwt.verify(token ,"Vikgol" )      
         if(decodedToken){

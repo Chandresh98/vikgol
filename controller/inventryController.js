@@ -1,6 +1,7 @@
 const inventryModel = require('../model/inventryModel')
 const userModel = require('../model/userModel')
 const storeModel = require('../model/storeModel')
+const validator = require('../middleware/validator')
 
 
 const addBook = async function (req, res) {
@@ -30,7 +31,8 @@ const addBook = async function (req, res) {
         if (!validator.isValid(subtitle)) {
             return res.status(400).send({ status: false, massage: "please enter subtitle" })
         }
-        if (!validator.isValid(authors)) {
+        
+        if (!validator.isValid(authors[0])) {
             return res.status(400).send({ status: false, massage: "please enter authors" })
         }
         if (!validator.isValid(description)) {
@@ -96,21 +98,21 @@ const updateBook = async function (req, res) {
         if (req.decodedToken.userId = userId) {
             const { title, subtitle, authors, description, stock } = data
             let final = {}
-            if (validator.isvalid(title)) {
+            if (validator.isValid(title)) {
                 final['title'] = title
             }
 
-            if (validator.isvalid(subtitle)) {
+            if (validator.isValid(subtitle)) {
                 final['subtitle'] = subtitle
             }
 
-            if (validator.isvalid(authors)) {
+            if (validator.isValid(authors)) {
                 final['authors'] = authors
             }
-            if (validator.isvalid(description)) {
+            if (validator.isValid(description)) {
                 final['description'] = description
             }
-            if (validator.isvalid(stock)) {
+            if (validator.isValid(stock)) {
                 if (stock == 0) {
                     final['outOfStock'] = true
                 }
